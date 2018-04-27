@@ -4,3 +4,4 @@ require 'vagrantrepo'
 require 'vagrantrepo/cli'
 
 logger = Vagrantrepo::CLI.logger
+opts = Vagrantrepo::CLI.options(logger)

@@ -1,5 +1,6 @@
 require 'logger'
 require 'awesome_print'
+require 'slop'
 
 module Vagrantrepo
   # cli helpers
@@ -24,6 +25,25 @@ module Vagrantrepo
                time: time
       }
       logger
+    end
+
+    def self.options(logger)
+      Slop.parse do |o|
+        o.on '-q', '--quiet', 'only warnings and errors are printed.' do
+          logger.level = logger.level == Logger::DEBUG ? Logger::DEBUG : Logger::WARN
+        end
+        o.on '-d', '--debug', 'debug logging. takes precedence over silent.', help: false do
+          logger.level = Logger::DEBUG
+        end
+        o.on '--version', 'print the version' do
+          puts Vagrantrepo::VERSION
+          exit
+        end
+        o.on '--help' do
+          puts o
+          exit
+        end
+      end
     end
   end
 end
