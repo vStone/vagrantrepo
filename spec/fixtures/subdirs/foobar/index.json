@@ -1,0 +1,17 @@
+{
+  "description": "<boxname>",
+  "name": "vstone/foobar",
+  "versions":[
+    {
+      "version": "0.0.0",
+      "providers": []
+    },
+    { "version": "1.0.0",
+      "providers": [{
+        "name": "virtualbox",
+        "url": "http://example.com/blabla.box",
+        "checksum": "definately_not"
+      }]
+    }
+  ]
+}
