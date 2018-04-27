@@ -1,6 +1,7 @@
 require 'logger'
 require 'awesome_print'
 require 'slop'
+require 'vagrantrepo/field_option'
 
 module Vagrantrepo
   # cli helpers
@@ -36,6 +37,21 @@ module Vagrantrepo
                  default: Vagrantrepo::Collect::DEFAULT_FILTER
         o.string '--meta-template', 'Naming template for the vagrant meta files.',
                  default: Vagrantrepo::Collect::DEFAULT_META_TEMPLATE
+        o.separator ''
+        o.separator 'Output options'
+        o.string '--output', 'Output root for updates meta files',
+                 default: Vagrantrepo::Updater::DEFAULT_OUTPUT_PATH
+        o.string '--output-meta-template', 'Naming template for the updated vagrant meta files',
+                 default: Vagrantrepo::Updater::DEFAULT_META_TEMPLATE
+        o.field '--meta-field', 'overwrite a field for the boxes.'
+        o.bool '--purge', <<-DESCRIPTION.strip_heredoc
+            Remove all box versions that are no longer on the filesystem.
+
+            You should enable this when you run the tool on the webserver
+            where all boxes are hosted. If you use this to only add a single
+            new box on your ci server and update the config that way, disable this.
+          DESCRIPTION
+        o.string '--vendor', 'Vendor used in metadata box name.', required: true
         o.string '--url', 'Url repository root.', required: true
         o.separator ''
         o.separator 'Global options'
