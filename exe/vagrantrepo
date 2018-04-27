@@ -5,3 +5,11 @@ require 'vagrantrepo/cli'
 
 logger = Vagrantrepo::CLI.logger
 opts = Vagrantrepo::CLI.options(logger)
+
+collector = Vagrantrepo::Collect.new(logger: logger, **opts.to_h)
+logger.info('looking for vagrant boxes...')
+boxfile_meta = collector.boxfile_meta
+logger.ap boxfile_meta
+logger.info('parsing current vagrant metadata')
+vagrant_meta = collector.vagrant_meta
+logger.ap vagrant_meta
